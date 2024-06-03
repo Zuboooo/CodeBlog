@@ -1,0 +1,7 @@
+def greet(name):
+    groot = f"Hello, {name}!"
+    print(groot)
+names = ["Raja", "Vedant", "Nicholas"] #list of names
+
+for name in names: #for loop uses list of names
+    greet(name)
