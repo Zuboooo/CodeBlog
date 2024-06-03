@@ -1,0 +1,9 @@
+def add(n1, n2): # adds the 2 given numbers
+    maths = n1 + n2 #does the maths (addition)
+    
+    print("The sum of " + str(n1) + " and " + str(n2) + " is " + str(maths) + "!") 
+    #prints the result
+
+add(7,71)
+add(8,81)
+add(1258,27894)
