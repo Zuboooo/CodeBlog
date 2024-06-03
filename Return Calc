@@ -1,0 +1,10 @@
+def add(n1, n2): # adds the 2 given numbers
+  maths = n1 + n2 #does the maths (addition)
+  return maths #return the maths
+
+adds1 = add(7,71)
+print("The sum of", 7, "and", 71, "is", adds1)
+adds2 = add(8,81)
+print("The sum of", 8, "and", 81, "is", adds2)
+adds3 = add(1258,27894)
+print("The sum of", 1258, "and", 27894, "is", adds3)
