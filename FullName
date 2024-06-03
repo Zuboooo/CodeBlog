@@ -1,0 +1,8 @@
+def frumple(first, last): #formats the fullname using the first and last name
+  glorble = first + " " + last
+  print ("Hello,", glorble) 
+
+#a list of the complete names seperated by first and last
+frumple("Vedannt", "Sarker")
+frumple("Nicholas", "Sarker")
+frumple("Borkle", "Sarker")
