@@ -1,0 +1,3 @@
+for i in range(2, 11):
+    fraction = 1 / i
+    print("1/" + str(i) + ":", fraction)
