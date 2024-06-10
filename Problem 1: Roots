@@ -1,0 +1,17 @@
+import math
+
+# Coefficients
+a = 1
+b = -5.86
+c = 8.5408
+
+underroot = b**2 - 4*a*c # Calculate discriminant
+
+if underroot >= 0: # Check if roots are real
+
+    root1 = (-b + math.sqrt(underroot)) / (2*a)
+    root2 = (-b - math.sqrt(underroot)) / (2*a)
+
+    # Print roots
+    print("Root 1:", root1)
+    print("Root 2:", root2)
