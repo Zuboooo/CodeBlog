@@ -1,0 +1,15 @@
+from datetime import datetime
+
+def Freedom_Units(feet, inches):
+    datetime_object = datetime.now()
+    print("Current Date and Time:", datetime_object)
+
+    itchy = feet * 12 + inches
+    print(f"inches: {itchy}")
+    return itchy
+
+feet = 6
+inches = 2
+itchy = Freedom_Units(feet, inches)
+
+print(f"inches from function: {itchy}")
