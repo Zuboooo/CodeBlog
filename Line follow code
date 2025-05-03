@@ -1,0 +1,120 @@
+// Motor A
+const int ENA = 11; // PWM pin for Motor A
+const int IN1 = 10;  // IN1 pin for Motor A
+const int IN2 = 9;  // IN2 pin for Motor A
+#define s 220 // base speed
+#define t 10 // turning speed
+
+// Motor B
+const int ENB = 6; // PWM pin for Motor B
+const int IN3 = 8;  // IN3 pin for Motor B
+const int IN4 = 7;  // IN4 pin for Motor B
+
+// IR Sensors
+const int IRSensorLeft = 2;   // Left IR sensor
+const int IRSensorRight = 3;  // Right IR sensor
+
+void setup() {
+  // Set motor pins as outputs
+  pinMode(ENA, OUTPUT);
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(ENB, OUTPUT);
+  pinMode(IN3, OUTPUT);
+  pinMode(IN4, OUTPUT);
+
+  // Set sensor pins as inputs
+  pinMode(IRSensorLeft, INPUT);
+  pinMode(IRSensorRight, INPUT);
+
+  // Initialize serial communication for debugging
+  Serial.begin(9600);
+}
+
+void loop() {
+  bool leftSensor = digitalRead(IRSensorLeft);
+  bool rightSensor = digitalRead(IRSensorRight);
+  
+  // Print sensor values
+  Serial.print("Left Sensor: ");
+  Serial.print(leftSensor);
+  Serial.print(" | Right Sensor: ");
+  Serial.println(rightSensor);
+
+  // Move forward if both sensors detect the same (either both black or both white)
+  if (leftSensor == rightSensor) {
+    moveForward();
+  }
+  // Turn right (actually turning left now)
+  else if (leftSensor == LOW && rightSensor == HIGH) {
+    stopBeforeTurning();
+    turnRight();
+  }
+  // Turn left (actually turning right now)
+  else if (leftSensor == HIGH && rightSensor == LOW) {
+    stopBeforeTurning();
+    turnLeft();
+  }
+  // Stop
+  else {
+    stopBeforeTurning();
+    stopMotors();
+  }
+
+  delay(100); // Optional: adjust or remove based on responsiveness
+}
+
+void stopBeforeTurning() {
+  stopMotors(); // Just stop, no delay
+}
+
+void moveForward() {
+  // Turn on motors briefly
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  analogWrite(ENA, s);
+
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+  analogWrite(ENB, s);
+
+  delay(80);  // Duration of the burst (tune as needed)
+
+  // Stop after burst
+  stopMotors();
+
+  delay(30);  // Pause between bursts to read sensors
+}
+
+
+void turnRight() {
+  // Flipped: now actually turns LEFT
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  analogWrite(ENA, t);
+
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, HIGH);
+  analogWrite(ENB, t);
+}
+
+void turnLeft() {
+  // Flipped: now actually turns RIGHT
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+  analogWrite(ENA, t);
+
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+  analogWrite(ENB, t);
+}
+
+void stopMotors() {
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+  analogWrite(ENA, 0);
+
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, LOW);
+  analogWrite(ENB, 0);
+}
